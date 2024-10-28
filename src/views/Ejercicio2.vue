@@ -9,7 +9,7 @@
       </Fieldset>
       <div class="controls">
         <label for="initialPopulation">Población Inicial en 2012:</label>
-        <input type="number" v-model="initialPopulation" id="initialPopulation" min="1">
+        <input type="number" v-model="initialPopulation" id="initialPopulation" min="1" placeholder="Ejemplo: 10059856">
         
         <button @click="simulatePopulationGrowth">Simular Crecimiento Poblacional</button>
       </div>
@@ -46,13 +46,13 @@ export default {
   },
   data() {
     return {
-      initialPopulation: 11965640,
+      initialPopulation: null, // Inicialmente vacío para permitir la entrada del usuario
       results: []
     };
   },
   methods: {
     simulatePopulationGrowth() {
-      let population = this.initialPopulation;
+      let population = Number(this.initialPopulation); // Asegurarse de que sea un número
       const birthRate = 0.02493; // Tasa de natalidad anual
       const deathRate = 0.00743; // Tasa de mortalidad anual
       const startYear = 2013;
