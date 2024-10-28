@@ -55,11 +55,24 @@ export default {
       let population = Number(this.initialPopulation); // Asegurarse de que sea un número
       const birthRate = 0.02493; // Tasa de natalidad anual
       const deathRate = 0.00743; // Tasa de mortalidad anual
-      const startYear = 2013;
-      const endYear = 2023;
+      const startYear = 2012; // Cambiado a 2012
+      const endYear = 2023; // Se mantiene hasta 2023
 
-      this.results = [];
-      for (let year = startYear; year <= endYear; year++) {
+      // Incluir el cálculo para el año inicial (2012)
+      const births2012 = Math.round(population * birthRate);
+      const deaths2012 = Math.round(population * deathRate);
+      population = population + births2012 - deaths2012; // Actualizar población para 2012
+
+      // Almacenar el resultado para 2012
+      this.results = [{
+        year: startYear,
+        births: births2012,
+        deaths: deaths2012,
+        population: Math.round(population)
+      }];
+
+      // Calcular para los años restantes (2013-2023)
+      for (let year = startYear + 1; year <= endYear; year++) {
         const births = Math.round(population * birthRate);
         const deaths = Math.round(population * deathRate);
         population = population + births - deaths;
@@ -74,7 +87,6 @@ export default {
   }
 };
 </script>
-
 
 <style scoped>
 h1 {
