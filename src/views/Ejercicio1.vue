@@ -4,7 +4,7 @@
     <div class="flex-container">
       <Fieldset legend="Enunciado del Ejercicio 1">
         <p>
-          ¿Cuál será el capital en un depósito a plazo fijo con una tasa de interés constante?
+          ¿De qué manera se puede determinar el comportamiento del capital bajo una tasa de interés fija?
         </p>
       </Fieldset>
       <div class="controls">

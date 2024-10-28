@@ -4,7 +4,7 @@
     <div class="flex-container">
       <Fieldset legend="Modelo Demográfico para Bolivia 2012-2024">
         <p>
-          Desarrollar un modelo para un sistema Demografico (para bolivia) año 2012 como se puede determinar la poblacion de bolivia en el ciclo 2012-2024
+          '¿Cómo se puede determinar la población de Bolivia en base a los resultados del censo 2012?'
         </p>
       </Fieldset>
       <div class="controls">
@@ -54,9 +54,9 @@ export default {
     simulatePopulationGrowth() {
       let population = this.initialPopulation;
       const birthRate = 0.02493; // Tasa de natalidad anual
-      const deathRate = 0.00793; // Tasa de mortalidad anual
-      const startYear = 2012;
-      const endYear = 2024;
+      const deathRate = 0.00743; // Tasa de mortalidad anual
+      const startYear = 2013;
+      const endYear = 2023;
 
       this.results = [];
       for (let year = startYear; year <= endYear; year++) {
