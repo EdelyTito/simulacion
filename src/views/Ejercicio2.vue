@@ -46,44 +46,35 @@ export default {
   },
   data() {
     return {
-      initialPopulation: 12169055, // Población inicial ajustada
+      initialPopulation: 11965640,
       results: []
     };
   },
   methods: {
     simulatePopulationGrowth() {
-      const T = 2024; // Extender hasta 2024
-      const TN = 0.02493; // Tasa de nacimientos
-      const TM = 0.00743; // Tasa de mortalidad
-      let CT = 2012; // Contador inicial de periodos
-      let PB = this.initialPopulation; // Población base inicial
+      let population = this.initialPopulation;
+      const birthRate = 0.02493; // Tasa de natalidad anual
+      const deathRate = 0.00743; // Tasa de mortalidad anual
+      const startYear = 2013;
+      const endYear = 2023;
 
       this.results = [];
-
-      // Bucle de simulación
-      while (CT <= T) {
-        // Cálculo de nacimientos y muertes
-        const births = Math.round(PB * TN); // Número de nacimientos
-        const deaths = Math.round(PB * TM); // Número de muertes
-
-        // Actualización de la población base
-        PB = PB + (births - deaths);
-
-        // Almacenar el resultado
+      for (let year = startYear; year <= endYear; year++) {
+        const births = Math.round(population * birthRate);
+        const deaths = Math.round(population * deathRate);
+        population = population + births - deaths;
         this.results.push({
-          year: CT,
+          year: year,
           births: births,
           deaths: deaths,
-          population: Math.round(PB) // Población redondeada
+          population: Math.round(population)
         });
-
-        // Incremento del contador de periodos
-        CT++;
       }
     }
   }
 };
 </script>
+
 
 <style scoped>
 h1 {
@@ -147,3 +138,4 @@ th, td {
   text-align: center;
 }
 </style>
+
