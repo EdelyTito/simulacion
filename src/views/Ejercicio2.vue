@@ -46,16 +46,16 @@ export default {
   },
   data() {
     return {
-      initialPopulation: 10059856, // Población base inicial
+      initialPopulation: 12169055, // Población inicial ajustada
       results: []
     };
   },
   methods: {
     simulatePopulationGrowth() {
-      const T = 2023; // Número de ciclos/periodos
+      const T = 2024; // Extender hasta 2024
       const TN = 0.02493; // Tasa de nacimientos
       const TM = 0.00743; // Tasa de mortalidad
-      let CT = 2013; // Contador inicial de periodos
+      let CT = 2012; // Contador inicial de periodos
       let PB = this.initialPopulation; // Población base inicial
 
       this.results = [];
