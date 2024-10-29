@@ -27,9 +27,9 @@
         <tbody>
           <tr v-for="result in results" :key="result.year">
             <td>{{ result.year }}</td>
-            <td>{{ result.births }}</td>
-            <td>{{ result.deaths }}</td>
-            <td>{{ result.population }}</td>
+            <td>{{ formatNumber(result.births) }}</td>
+            <td>{{ formatNumber(result.deaths) }}</td>
+            <td>{{ formatNumber(result.population) }}</td>
           </tr>
         </tbody>
       </table>
@@ -78,6 +78,9 @@ export default {
           population: Math.round(population)
         });
       }
+    },
+    formatNumber(number) {
+      return new Intl.NumberFormat().format(number);
     }
   }
 };
