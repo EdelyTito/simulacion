@@ -19,7 +19,7 @@
         <thead>
           <tr>
             <th>Año</th>
-            <th>Nacimiento</th>
+            <th>Nacimientos</th>
             <th>Muertes</th>
             <th>Población</th>
           </tr>
@@ -52,32 +52,42 @@ export default {
   },
   methods: {
     simulatePopulationGrowth() {
-      let population = Number(this.initialPopulation); // Asegurarse de que sea un número
-      const birthRate = 0.02493; // Tasa de natalidad anual
-      const deathRate = 0.00743; // Tasa de mortalidad anual
-      const startYear = 2012; // Año de inicio
-      const endYear = 2024; // Año de fin
+      let CT = 2013; // Año inicial
+      const T = 2023; // Año final
+      const TN = 0.02493; // Tasa de nacimientos
+      const TM = 0.00743; // Tasa de mortalidad
+      let PB = Number(this.initialPopulation); // Población inicial ingresada por el usuario
 
       // Reiniciar resultados para cada simulación
       this.results = [{
-        year: startYear,
+        year: 2013,
         births: 0, // Sin nacimientos en 2012
         deaths: 0, // Sin muertes en 2012
-        population: population // Población inicial ingresada por el usuario
+        population: PB // Población inicial ingresada por el usuario
       }];
 
-      // Calcular para los años restantes (2012-2024)
-      for (let year = startYear + 1; year <= endYear; year++) {
-        const births = Math.round(population * birthRate);
-        const deaths = Math.round(population * deathRate);
-        population += births - deaths; // Actualizamos la población
+      // Ciclo para calcular la población desde 2013 hasta 2024
+      while (CT < T) {
+        let NAC = Math.round(PB * TN); // Cálculo de nacimientos
+        let MUE = Math.round(PB * TM); // Cálculo de muertes
+
+        // Actualización de la población
+        PB = PB + NAC - MUE;
+
+        // Agregar el resultado para el año actual
         this.results.push({
-          year: year,
-          births: births,
-          deaths: deaths,
-          population: Math.round(population) // Población redondeada
+          year: CT,
+          births: NAC,
+          deaths: MUE,
+          population: Math.round(PB) // Población redondeada
         });
+
+        // Incrementar el año
+        CT++;
       }
+
+      // Imprimir el valor final de PB en la consola
+      console.log(`Valor final de PB: ${PB}`);
     },
     formatNumber(number) {
       return new Intl.NumberFormat().format(number);
