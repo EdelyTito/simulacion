@@ -11,7 +11,7 @@
         <label for="initialPopulation">Población Inicial en 2012:</label>
         <input type="number" v-model="initialPopulation" id="initialPopulation" min="1" placeholder="Ejemplo: 10059856">
         
-        <button @click="simulatePopulationGrowth">Simular Crecimiento Poblacional</button>
+        <button @click="simulatePopulationGrowth" :disabled="!initialPopulation">Simular Crecimiento Poblacional</button>
       </div>
     </div>
     <Fieldset v-if="results.length" legend="Resultados" class="results-container">
@@ -55,14 +55,14 @@ export default {
       let population = Number(this.initialPopulation); // Asegurarse de que sea un número
       const birthRate = 0.02493; // Tasa de natalidad anual
       const deathRate = 0.00743; // Tasa de mortalidad anual
-      const startYear = 2012; // Años de inicio
-      const endYear = 2023; // Años de fin
+      const startYear = 2012; // Año de inicio
+      const endYear = 2023; // Año de fin
 
-      // Almacenar el resultado para 2012 directamente desde la población inicial
+      // Reiniciar resultados para cada simulación
       this.results = [{
         year: startYear,
-        births: 0, // Sin nacimientos en 2012, ya que solo mostramos la población inicial
-        deaths: 0, // Sin muertes en 2012, ya que solo mostramos la población inicial
+        births: 0, // Sin nacimientos en 2012
+        deaths: 0, // Sin muertes en 2012
         population: population // Población inicial ingresada por el usuario
       }];
 
@@ -70,7 +70,7 @@ export default {
       for (let year = startYear + 1; year <= endYear; year++) {
         const births = Math.round(population * birthRate);
         const deaths = Math.round(population * deathRate);
-        population = population + births - deaths;
+        population += births - deaths;
         this.results.push({
           year: year,
           births: births,
@@ -131,11 +131,15 @@ button {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+  cursor: pointer;
+}
+button:disabled {
+  background-color: #ccc; /* Deshabilitado */
+  cursor: not-allowed;
 }
 input {
   border-radius: 20px;
   text-align: center;
-  text-decoration: none;
   display: inline-block;
   font-size: 16px;
 }
@@ -145,4 +149,3 @@ th, td {
   text-align: center;
 }
 </style>
-
