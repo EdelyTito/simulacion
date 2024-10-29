@@ -59,18 +59,20 @@ export default {
       const endYear = 2024; // Año de fin
 
       // Reiniciar resultados para cada simulación
-      this.results = [{
-        year: startYear,
-        births: 0, // Sin nacimientos en 2012
-        deaths: 0, // Sin muertes en 2012
-        population: population // Población inicial ingresada por el usuario
-      }];
+      this.results = [];
 
-      // Calcular para los años restantes (2012-2024)
-      for (let year = startYear ; year <= endYear; year++) {
-        const births = Math.round(population * birthRate);
-        const deaths = Math.round(population * deathRate);
-        population += births - deaths; // Actualizamos la población
+      // Calcular para los años (2012-2024)
+      for (let year = startYear; year <= endYear; year++) {
+        let births = 0;
+        let deaths = 0;
+
+        // Solo calcular nacimientos y muertes a partir del año 2013
+        if (year > startYear) {
+          births = Math.round(population * birthRate);
+          deaths = Math.round(population * deathRate);
+          population += births - deaths; // Actualizamos la población
+        }
+
         this.results.push({
           year: year,
           births: births,
