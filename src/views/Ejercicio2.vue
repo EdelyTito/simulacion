@@ -4,14 +4,14 @@
     <div class="flex-container">
       <Fieldset legend="Modelo Demográfico para Bolivia 2012-2024">
         <p>
-          Desarrollar un modelo para un sistema Demografico (para bolivia) año 2012 como se puede determinar la poblacion de bolivia en el ciclo 2012-2024
+          '¿Cómo se puede determinar la población de Bolivia en base a los resultados del censo 2012?'
         </p>
       </Fieldset>
       <div class="controls">
         <label for="initialPopulation">Población Inicial en 2012:</label>
-        <input type="number" v-model="initialPopulation" id="initialPopulation" min="1">
+        <input type="number" v-model="initialPopulation" id="initialPopulation" min="1" placeholder="Ejemplo: 10059856">
         
-        <button @click="simulatePopulationGrowth">Simular Crecimiento Poblacional</button>
+        <button @click="simulatePopulationGrowth" :disabled="!initialPopulation">Simular Crecimiento Poblacional</button>
       </div>
     </div>
     <Fieldset v-if="results.length" legend="Resultados" class="results-container">
@@ -19,7 +19,7 @@
         <thead>
           <tr>
             <th>Año</th>
-            <th>Nacimientos</th>
+            <th>Nacimiento</th>
             <th>Muertes</th>
             <th>Población</th>
           </tr>
@@ -27,9 +27,9 @@
         <tbody>
           <tr v-for="result in results" :key="result.year">
             <td>{{ result.year }}</td>
-            <td>{{ result.births }}</td>
-            <td>{{ result.deaths }}</td>
-            <td>{{ result.population }}</td>
+            <td>{{ formatNumber(result.births) }}</td>
+            <td>{{ formatNumber(result.deaths) }}</td>
+            <td>{{ formatNumber(result.population) }}</td>
           </tr>
         </tbody>
       </table>
@@ -46,35 +46,45 @@ export default {
   },
   data() {
     return {
-      initialPopulation: 10000000,
+      initialPopulation: null, // Inicialmente vacío para permitir la entrada del usuario
       results: []
     };
   },
   methods: {
     simulatePopulationGrowth() {
-      let population = this.initialPopulation;
+      let population = Number(this.initialPopulation); // Asegurarse de que sea un número
       const birthRate = 0.02493; // Tasa de natalidad anual
-      const deathRate = 0.00793; // Tasa de mortalidad anual
-      const startYear = 2012;
-      const endYear = 2024;
+      const deathRate = 0.00743; // Tasa de mortalidad anual
+      const startYear = 2013; // Año de inicio
+      const endYear = 2024; // Año de fin
 
-      this.results = [];
-      for (let year = startYear; year <= endYear; year++) {
+      // Reiniciar resultados para cada simulación
+      this.results = [{
+        year: startYear,
+        births: 0, // Sin nacimientos en 2012
+        deaths: 0, // Sin muertes en 2012
+        population: population // Población inicial ingresada por el usuario
+      }];
+
+      // Calcular para los años restantes (2013-2024)
+      for (let year = startYear + 1; year <= endYear; year++) {
         const births = Math.round(population * birthRate);
         const deaths = Math.round(population * deathRate);
-        population = population + births - deaths;
+        population += births - deaths; // Actualizamos la población
         this.results.push({
           year: year,
           births: births,
           deaths: deaths,
-          population: Math.round(population)
+          population: Math.round(population) // Población redondeada
         });
       }
+    },
+    formatNumber(number) {
+      return new Intl.NumberFormat().format(number);
     }
   }
 };
 </script>
-
 
 <style scoped>
 h1 {
@@ -124,11 +134,15 @@ button {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+  cursor: pointer;
+}
+button:disabled {
+  background-color: #ccc; /* Deshabilitado */
+  cursor: not-allowed;
 }
 input {
   border-radius: 20px;
   text-align: center;
-  text-decoration: none;
   display: inline-block;
   font-size: 16px;
 }
@@ -138,4 +152,3 @@ th, td {
   text-align: center;
 }
 </style>
-
