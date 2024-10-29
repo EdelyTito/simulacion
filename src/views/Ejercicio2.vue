@@ -2,19 +2,19 @@
   <div>
     <h1>Simulación Demográfica de Bolivia</h1>
     <div class="flex-container">
-      <Fieldset legend="Modelo Demográfico para Bolivia 2012-2024">
+      <!--<Fieldset legend="Modelo Demográfico para Bolivia 2012-2023">-->
         <p>
-          '¿Cómo se puede determinar la población de Bolivia en base a los resultados del censo 2012?'
+          ¿Cómo se puede determinar la población de Bolivia en base a los resultados del censo 2012?
         </p>
-      </Fieldset>
+      <!--</Fieldset>-->
       <div class="controls">
-        <label for="initialPopulation">Población Inicial en 2013:</label>
+        <label for="initialPopulation">Población Inicial:</label>
         <input type="number" v-model="initialPopulation" id="initialPopulation" min="1" placeholder="Ejemplo: 10059856">
         
         <button @click="simulatePopulationGrowth" :disabled="!initialPopulation">Simular Crecimiento Poblacional</button>
       </div>
     </div>
-    <Fieldset v-if="results.length" legend="Resultados" class="results-container">
+    <!--<Fieldset v-if="results.length" legend="Resultados" class="results-container">-->
       <table>
         <thead>
           <tr>
@@ -33,12 +33,12 @@
           </tr>
         </tbody>
       </table>
-    </Fieldset>
+    <!--</Fieldset>-->
   </div>
 </template>
 
 <script>
-import Fieldset from '../components/CardProblem.vue';
+//import Fieldset from '../components/CardProblem.vue';
 
 export default {
   components: {

@@ -39,7 +39,7 @@
   
   .fieldset-legend {
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 3em;
     padding: 0 10px;
     color: rgb(25, 20, 27);
   }
