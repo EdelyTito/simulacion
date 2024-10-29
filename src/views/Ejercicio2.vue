@@ -38,7 +38,7 @@
 </template>
 
 <script>
-//import Fieldset from '../components/CardProblem.vue';
+import Fieldset from '../components/CardProblem.vue';
 
 export default {
   components: {
