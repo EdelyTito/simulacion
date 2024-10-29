@@ -4,14 +4,14 @@
     <div class="flex-container">
       <Fieldset legend="Modelo Demográfico para Bolivia 2012-2024">
         <p>
-          '¿Cómo se puede determinar la población de Bolivia en base a los resultados del censo 2012?'
+          Desarrollar un modelo para un sistema Demografico (para bolivia) año 2012 como se puede determinar la poblacion de bolivia en el ciclo 2012-2024
         </p>
       </Fieldset>
       <div class="controls">
         <label for="initialPopulation">Población Inicial en 2012:</label>
-        <input type="number" v-model="initialPopulation" id="initialPopulation" min="1" placeholder="Ejemplo: 10059856">
+        <input type="number" v-model="initialPopulation" id="initialPopulation" min="1">
         
-        <button @click="simulatePopulationGrowth" :disabled="!initialPopulation">Simular Crecimiento Poblacional</button>
+        <button @click="simulatePopulationGrowth">Simular Crecimiento Poblacional</button>
       </div>
     </div>
     <Fieldset v-if="results.length" legend="Resultados" class="results-container">
@@ -27,9 +27,9 @@
         <tbody>
           <tr v-for="result in results" :key="result.year">
             <td>{{ result.year }}</td>
-            <td>{{ formatNumber(result.births) }}</td>
-            <td>{{ formatNumber(result.deaths) }}</td>
-            <td>{{ formatNumber(result.population) }}</td>
+            <td>{{ result.births }}</td>
+            <td>{{ result.deaths }}</td>
+            <td>{{ result.population }}</td>
           </tr>
         </tbody>
       </table>
@@ -46,55 +46,35 @@ export default {
   },
   data() {
     return {
-      initialPopulation: null, // Inicialmente vacío para permitir la entrada del usuario
+      initialPopulation: 10000000,
       results: []
     };
   },
   methods: {
     simulatePopulationGrowth() {
-      let CT = 2013; // Año inicial
-      const T = 2024; // Año final
-      const TN = 0.02493; // Tasa de nacimientos
-      const TM = 0.00743; // Tasa de mortalidad
-      let PB = Number(this.initialPopulation); // Población inicial ingresada por el usuario
+      let population = this.initialPopulation;
+      const birthRate = 0.02493; // Tasa de natalidad anual
+      const deathRate = 0.00793; // Tasa de mortalidad anual
+      const startYear = 2012;
+      const endYear = 2024;
 
-      // Reiniciar resultados para cada simulación
-      this.results = [{
-        year: 2012,
-        births: 0, // Sin nacimientos en 2012
-        deaths: 0, // Sin muertes en 2012
-        population: PB // Población inicial ingresada por el usuario
-      }];
-
-      // Ciclo para calcular la población desde 2013 hasta 2024
-      while (CT < T) {
-        let NAC = Math.round(PB * TN); // Cálculo de nacimientos
-        let MUE = Math.round(PB * TM); // Cálculo de muertes
-
-        // Actualización de la población
-        PB = PB + NAC - MUE;
-
-        // Agregar el resultado para el año actual
+      this.results = [];
+      for (let year = startYear; year <= endYear; year++) {
+        const births = Math.round(population * birthRate);
+        const deaths = Math.round(population * deathRate);
+        population = population + births - deaths;
         this.results.push({
-          year: CT,
-          births: NAC,
-          deaths: MUE,
-          population: Math.round(PB) // Población redondeada
+          year: year,
+          births: births,
+          deaths: deaths,
+          population: Math.round(population)
         });
-
-        // Incrementar el año
-        CT++;
       }
-
-      // Imprimir el valor final de PB en la consola
-      console.log(`Valor final de PB: ${PB}`);
-    },
-    formatNumber(number) {
-      return new Intl.NumberFormat().format(number);
     }
   }
 };
 </script>
+
 
 <style scoped>
 h1 {
@@ -144,15 +124,11 @@ button {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  cursor: pointer;
-}
-button:disabled {
-  background-color: #ccc; /* Deshabilitado */
-  cursor: not-allowed;
 }
 input {
   border-radius: 20px;
   text-align: center;
+  text-decoration: none;
   display: inline-block;
   font-size: 16px;
 }
@@ -162,3 +138,4 @@ th, td {
   text-align: center;
 }
 </style>
+
