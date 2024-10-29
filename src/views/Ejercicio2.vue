@@ -19,7 +19,7 @@
         <thead>
           <tr>
             <th>Año</th>
-            <th>Nacimientos</th>
+            <th>Nacimiento</th>
             <th>Muertes</th>
             <th>Población</th>
           </tr>
