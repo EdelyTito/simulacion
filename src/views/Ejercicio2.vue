@@ -8,7 +8,7 @@
         </p>
       </Fieldset>
       <div class="controls">
-        <label for="initialPopulation">Población Inicial en 2012:</label>
+        <label for="initialPopulation">Población Inicial en 2013:</label>
         <input type="number" v-model="initialPopulation" id="initialPopulation" min="1" placeholder="Ejemplo: 10059856">
         
         <button @click="simulatePopulationGrowth" :disabled="!initialPopulation">Simular Crecimiento Poblacional</button>
@@ -53,26 +53,18 @@ export default {
   methods: {
     simulatePopulationGrowth() {
       let CT = 2013; // Año inicial
-      const T = 2023; // Año final
+      const T = 2024; // Año final (ajustado a 2024)
       const TN = 0.02493; // Tasa de nacimientos
       const TM = 0.00743; // Tasa de mortalidad
       let PB = Number(this.initialPopulation); // Población inicial ingresada por el usuario
 
       // Reiniciar resultados para cada simulación
-      this.results = [{
-        year: 2013,
-        births: 0, // Sin nacimientos en 2012
-        deaths: 0, // Sin muertes en 2012
-        population: PB // Población inicial ingresada por el usuario
-      }];
+      this.results = [];
 
       // Ciclo para calcular la población desde 2013 hasta 2024
-      while (CT < T) {
+      while (CT <= T) {
         let NAC = Math.round(PB * TN); // Cálculo de nacimientos
         let MUE = Math.round(PB * TM); // Cálculo de muertes
-
-        // Actualización de la población
-        PB = PB + NAC - MUE;
 
         // Agregar el resultado para el año actual
         this.results.push({
@@ -81,6 +73,9 @@ export default {
           deaths: MUE,
           population: Math.round(PB) // Población redondeada
         });
+
+        // Actualización de la población
+        PB = PB + NAC - MUE;
 
         // Incrementar el año
         CT++;
