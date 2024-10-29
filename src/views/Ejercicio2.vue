@@ -67,7 +67,7 @@ export default {
       }];
 
       // Calcular para los años restantes (2012-2024)
-      for (let year = startYear ; year <= endYear; year++) {
+      for (let year = startYear + 1; year <= endYear; year++) {
         const births = Math.round(population * birthRate);
         const deaths = Math.round(population * deathRate);
         population += births - deaths; // Actualizamos la población
