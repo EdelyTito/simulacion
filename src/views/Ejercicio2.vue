@@ -55,7 +55,7 @@ export default {
       let population = Number(this.initialPopulation); // Asegurarse de que sea un número
       const birthRate = 0.02493; // Tasa de natalidad anual
       const deathRate = 0.00743; // Tasa de mortalidad anual
-      const startYear = 2013; // Año de inicio
+      const startYear = 2012; // Año de inicio
       const endYear = 2024; // Año de fin
 
       // Reiniciar resultados para cada simulación
@@ -66,7 +66,7 @@ export default {
         population: population // Población inicial ingresada por el usuario
       }];
 
-      // Calcular para los años restantes (2013-2024)
+      // Calcular para los años restantes (2012-2024)
       for (let year = startYear + 1; year <= endYear; year++) {
         const births = Math.round(population * birthRate);
         const deaths = Math.round(population * deathRate);
