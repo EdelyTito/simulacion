@@ -69,7 +69,6 @@ export default {
 };
 </script>
 
-
 <style scoped>
 h1 {
   font-size: 50px;
@@ -83,8 +82,14 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
+  gap: 10px; /* Ajuste del espacio entre los elementos */
   margin-top: 20px;
+  width: 90%; /* Ajuste del ancho total del contenedor */
+  margin: 0 auto;
+}
+
+Fieldset {
+  margin-right: -10px; /* Ajuste del margen derecho */
 }
 
 .controls {
@@ -95,6 +100,7 @@ h1 {
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 1.1);
+  margin-left: -10px; /* Ajuste del margen izquierdo */
 }
 
 .results-container {
