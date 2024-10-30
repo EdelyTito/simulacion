@@ -4,13 +4,13 @@
 	  <li>
 		<a href="#">ejercicios</a>
 		<ul class="submenu">
-		  <li><router-link to="/ejercicio1">ejercicio 1</router-link></li>
-		  <li><router-link to="/ejercicio2">ejercicio 2</router-link></li>
-		  <li><router-link to="/ejercicio3">ejercicio 3</router-link></li>
-		  <li><router-link to="/ejercicio4">ejercicio 4</router-link></li>
-		  <li><router-link to="/ejercicio5">ejercicio 5</router-link></li>
-		  <li><router-link to="/ejercicio6">ejercicio 6</router-link></li>
-		  <li><router-link to="/ejercicio7">ejercicio 7</router-link></li>
+		  <li><router-link to="/ejercicio1">ejercicio a</router-link></li>
+		  <li><router-link to="/ejercicio2">ejercicio b</router-link></li>
+		  <li><router-link to="/ejercicio3">ejercicio c</router-link></li>
+		  <li><router-link to="/ejercicio4">ejercicio d</router-link></li>
+		  <li><router-link to="/ejercicio5">ejercicio e</router-link></li>
+		  <li><router-link to="/ejercicio7">ejercicio f</router-link></li>
+		  <li><router-link to="/ejercicio6">ejercicio g</router-link></li>
 		</ul>
 	  </li>
 	</ul>
