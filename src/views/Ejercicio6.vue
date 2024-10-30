@@ -2,7 +2,7 @@
   <div>
     <h1>Ejercicio 6</h1>
     <div class="flex-container">
-      <Fieldset legend="Enunciado del Ejercicio 6">
+      <Fieldset>
         <p>
           La demanda de azúcar en una tienda sigue una distribución exponencial con media de 100 Kg/día. El dueño de la tienda revisa el inventario cada 7 días y hace un pedido a la planta igual a la capacidad de la bodega menos la cantidad de azúcar que tiene disponible en ese momento: la entrega no es inmediata y sigue una distribución uniforme entre 1 y 3 días. La demanda no surtida por falta de existencias representa ventas perdidas. La capacidad de almacenamiento de la bodega es de 700 Kgrs. El costo de ordenar es de 100 Bs./orden. El costo de llevar el inventario es igual a 0.1 Bs./Kg, el costo de adquisición es igual a 3.5 Bs/Kgr y el precio de venta igual 5 Bs/Kgr. Determinar el comportamiento del inventario a lo largo del tiempo, el costo y la ganancia neta, la demanda insatisfecha para un horizonte de dos meses. Sera la capacidad del almacén suficiente?
         </p>
@@ -13,7 +13,7 @@
         <button @click="simulateStore">Simular Tienda</button>
       </div>
     </div>
-    <Fieldset v-if="results.length" legend="Resultados" class="results-container">
+    <Fieldset v-if="results.length" class="results-container">
       <table>
         <thead>
           <tr>

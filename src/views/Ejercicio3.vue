@@ -2,7 +2,7 @@
   <div>
     <h1>Ejercicio 3</h1>
     <div class="flex-container">
-      <Fieldset legend="Enunciado del Ejercicio 3">
+      <Fieldset>
         <p>
           Max Z = 2X1 + 3X2 - X3<br>
           Sujeto a:<br>
@@ -18,7 +18,7 @@
         <button @click="simulateMonteCarlo">Simular</button>
       </div>
     </div>
-    <Fieldset v-if="results.length" legend="Resultados" class="results-container">
+    <Fieldset v-if="results.length" class="results-container">
       <table>
         <thead>
           <tr>

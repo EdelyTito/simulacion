@@ -2,7 +2,7 @@
   <div>
     <h1>Ejercicio 5</h1>
     <div class="flex-container">
-      <Fieldset legend="Enunciado del Ejercicio 7">
+      <Fieldset>
         <p>
           Las llegadas de los clientes a una tienda, sigue una distribución uniforme: 2 ± 2, por hora y cada cliente compra artículos de acuerdo con la siguiente función de probabilidad:
            Artículos: 0 1 2 3
@@ -16,7 +16,7 @@
         <button @click="simulateStore">Simular Tienda</button>
       </div>
     </div>
-    <Fieldset v-if="results.length" legend="Resultados" class="results-container">
+    <Fieldset v-if="results.length" class="results-container">
       <table>
         <thead>
           <tr>

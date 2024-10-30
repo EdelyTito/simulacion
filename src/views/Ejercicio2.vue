@@ -2,7 +2,7 @@
   <div>
     <h1>Simulación Demográfica de Bolivia</h1>
     <div class="flex-container">
-      <Fieldset legend="Modelo Demográfico para Bolivia 2012-2023">
+      <Fieldset>
         <p>
           ¿Cómo se puede determinar la población de Bolivia en base a los resultados del censo 2012?
         </p>
@@ -14,7 +14,7 @@
         <button @click="simulatePopulationGrowth" :disabled="!initialPopulation">Simular Crecimiento Poblacional</button>
       </div>
     </div>
-    <Fieldset v-if="results.length" legend="Resultados" class="results-container">
+    <Fieldset v-if="results.length" class="results-container">
       <table>
         <thead>
           <tr>

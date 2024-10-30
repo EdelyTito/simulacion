@@ -2,7 +2,7 @@
   <div>
       <h1>Ejercicio 7</h1>
       <div class="flex-container">
-          <Fieldset legend="Enunciado del Ejercicio 5">
+          <Fieldset>
               <p>
                   Un granjero tiene una gallina que pone huevos a una razón Poisson con media de 2 huevos/día. El 20% de los huevos se rompen, del 30% de ellos nacen pollos y el resto permanecen como huevos. De los pollos, el 20% muere y el 80% sobrevive. Simule este sistema y determine el ingreso promedio del granjero si cada huevo lo vende en 2 Bs y cada pollo en 30 Bs.
               </p>
@@ -13,7 +13,7 @@
               <button @click="simulateFarm">Simular Granja</button>
           </div>
       </div>
-      <Fieldset v-if="results.length" legend="Resultados" class="results-container">
+      <Fieldset v-if="results.length" class="results-container">
         <p><strong>Total de Ganancia de los {{ simulationDays }} días:</strong> {{ totalIncome }} Bs.</p>
         <p><strong>Huevos Puestos en el total de dias</strong> 
         {{ results.reduce((acc, result) => acc + result.eggsLaid, 0) }} </p>

@@ -15,7 +15,7 @@
         <button @click="simulateInvestment">Simular Depósito</button>
       </div>
     </div>
-    <Fieldset v-if="results.length" legend="Resultados" class="results-container">
+    <Fieldset v-if="results.length" class="results-container">
       <table>
         <thead>
           <tr>

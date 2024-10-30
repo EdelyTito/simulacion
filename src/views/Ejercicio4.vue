@@ -2,7 +2,7 @@
   <div>
     <h1>Ejercicio 4</h1>
     <div class="flex-container">
-      <Fieldset legend="Enunciado del Ejercicio 4">
+      <Fieldset>
         <p>
           Desarrollar el diagrama de flujo para el siguiente juego de datos: el apostador lanza 2 dados y si saca 7 en la suma de los dos dados gana 5 Bs. De otra manera pierde 2 Bs. Simular el juego y determinar cuanto habrá acumulado el apostador luego de los lanzamientos.
         </p>
@@ -13,7 +13,7 @@
         <button @click="simulateGame">Simular Juego</button>
       </div>
     </div>
-    <Fieldset v-if="results.length" legend="Resultados" class="results-container">
+    <Fieldset v-if="results.length" class="results-container">
       <table>
         <thead>
           <tr>
