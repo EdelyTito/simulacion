@@ -75,9 +75,10 @@ export default {
   },
   
   methods: {
-    generar_rx(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
+    generar_rnd(min, max) {
+      return Math.random() * (max - min) + min; // Cambia la generación de número aleatorio
     },
+    
     simulateMonteCarlo() {
       this.mejor_solucion = null;
       this.Z = -Infinity; // Establece Z a infinito negativo para la maximización
@@ -85,29 +86,29 @@ export default {
       this.results = [];
 
       for (let i = 0; i < this.NUM_ITERACIONES; i++) {
-        const x1 = this.generar_rx(0, 10);
-        const x2 = this.generar_rx(0, 10);
-        const x3 = this.generar_rx(1, 2);
+        // Generación de X1 y X2 en el rango correcto
+        const x1 = this.generar_rnd(0, 10); 
+        const x2 = Math.floor(this.generar_rnd(0, 100)); // Asegúrate de redondear a entero
+        const x3 = this.generar_rnd(1, 2); // Genera X3 en el rango [1, 2]
 
-        const isValid = x1 + x2 >= 2;
+        // Validación de la restricción
+        const isValid = (x1 + x2) <= 20; // Cambié la condición para que coincida con el algoritmo original
         const z = isValid ? (2 * x1 + 3 * x2 - x3) : null;
 
+        // Actualizar mejor solución si es válida y mejora Z
         if (isValid && z > this.Z) {
           this.Z = z;
           this.mejor_solucion = { x1, x2, x3, z };
           this.iteracion_mejor_solucion = i; // Guarda la iteración actual
         }
 
-        // Almacenar el resultado para cada iteración, incluso si no es válido
+        // Almacenar el resultado para cada iteración
         this.results.push({ x1, x2, x3, z: isValid ? z : 'Invalido' });
       }
     },
-}
-
-
+  },
 };
 </script>
-
 
 <style scoped>
 h1 {
@@ -161,7 +162,6 @@ button {
 input {
   border-radius: 20px;
   text-align: center;
-  text-decoration: none;
   display: inline-block;
   font-size: 16px;
 }
