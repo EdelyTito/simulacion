@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h1>Ejercicio 1</h1>
+    <h1>Ejercicio A</h1>
     <div class="flex-container">
-      <Fieldset legend="Enunciado del Ejercicio 1">
+      <Fieldset>
         <p>
           ¿Cuál será el capital en un depósito a plazo fijo con una tasa de interés constante?
         </p>
