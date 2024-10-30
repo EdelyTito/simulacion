@@ -111,28 +111,40 @@ h1 {
 }
 
 .flex-container {
-  justify-content: space-between;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
   margin-top: 20px;
-  width: 90%;
-  margin: 0 auto;
+  width: 100%;
 }
 
 fieldset{
-  margin-right: -10px;
+  width: 80%; /* Asegura que el Fieldset ocupe el 80% del ancho */
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+Fieldset p {
+  font-size: 20px;
+  color: #333;
+  margin: 0;
 }
 
 .controls {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
   background-color: #fff;
-  padding: 20px;
+  padding: 25px;
   border-radius: 20px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 1.1);
-  margin-left: -10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 50%; /* Ajuste el ancho del cuadro de ingreso */
+  text-align: center;
 }
 
 .results-container {
