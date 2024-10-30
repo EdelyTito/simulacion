@@ -112,9 +112,26 @@ h1 {
 
 .flex-container {
   display: flex;
-  align-items: start;
-  gap: 20px;
+  align-items: center;
+  gap: 10px;
   margin-top: 20px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+fieldset{
+  margin-right: -10px;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 1.1);
+  margin-left: -10px;
 }
 
 .results-container {
@@ -148,13 +165,4 @@ button {
   margin: 20px 0;
 }
 
-.controls{
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 1.1);
-}
 </style>
