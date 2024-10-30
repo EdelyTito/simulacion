@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Ejercicio F</h1>
+    <h1>Ejercicio E</h1>
     <div class="flex-container">
       <Fieldset>
         <p>
@@ -112,7 +112,7 @@ h1 {
 
 .flex-container {
   display: flex;
-  
+  flex-direction: column;
   align-items: center;
   gap: 20px;
   margin-top: 20px;
@@ -130,6 +130,7 @@ fieldset{
 }
 
 Fieldset p {
+  width: 100%;
   font-size: 20px;
   color: #333;
   margin: 0;
