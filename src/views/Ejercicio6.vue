@@ -116,6 +116,7 @@ h1 {
 }
 
 .flex-container {
+  justify-content: space-between;
   display: flex;
   align-items: center;
   gap: 10px;

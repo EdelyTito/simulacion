@@ -80,6 +80,7 @@ h1 {
 
 .flex-container {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 10px; /* Ajuste del espacio entre los elementos */
   margin-top: 20px;
