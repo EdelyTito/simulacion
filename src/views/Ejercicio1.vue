@@ -57,16 +57,16 @@ export default {
       const interestRate = 0.035; 
       const fixedInterest = 35; // Interés fijo para el primer año
 
-      // Agregar la primera fila con capital inicial y interés fijo
+      // Agregar la primera fila con capital inicial y un interés fijo
       this.results.push({
-        interest: fixedInterest.toFixed(2), // Interés fijo
-        capital: capital.toFixed(2)         // Capital inicial
+        interest: fixedInterest.toFixed(2), // Interés fijo para el primer año
+        capital: (capital + fixedInterest).toFixed(2) // Capital después del primer año
       });
       
       // Calcular para los años restantes
-      for (let year = 1; year < this.tiempoDeposito; year++) {
-        let interest = capital * interestRate; // Calcular el interés para el siguiente año
-        capital += interest;                    // Actualizar el capital
+      for (let year = 2; year <= this.tiempoDeposito; year++) {
+        const interest = (capital + fixedInterest) * interestRate; // Calcular el interés para el siguiente año
+        capital += interest;                                    // Actualizar el capital
         this.results.push({
           interest: interest.toFixed(2),
           capital: capital.toFixed(2)
