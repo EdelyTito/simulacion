@@ -19,7 +19,7 @@ export default {
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-image: url("~@/assets/fondo.jpg");
+  background-image: url("~@/assets/fondito.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;

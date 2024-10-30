@@ -1,6 +1,6 @@
 <template>
-    <h1 class="title1">Practica</h1>
-    <h1 class="title2">Modelado</h1>
+    <h1 class="title1">PRÁCTICA</h1>
+    <h1 class="title2">SIMULACIONES</h1>
 </template>
 
 <script>
