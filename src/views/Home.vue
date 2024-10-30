@@ -11,6 +11,7 @@
   font-size: 100px;
   color: #fff;
   text-align: center;
+  margin: 0px;
   text-shadow: 2px 2px 4px #000000;
 }
 

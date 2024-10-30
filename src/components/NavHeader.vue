@@ -42,7 +42,7 @@
   }
 
   .menu {   
-   margin: 50px auto;
+   margin: 0 auto;
    width: 800px;   
    width: -moz-fit-content;
    width: -webkit-fit-content;
