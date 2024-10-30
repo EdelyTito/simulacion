@@ -45,8 +45,8 @@ export default {
   },
   data() {
     return {
-      capitalInicial: 1000,
-      tiempoDeposito: 10,
+      capitalInicial: capitalInicial,
+      tiempoDeposito: tiempoDeposito,
       results: []
     };
   },
@@ -59,7 +59,7 @@ export default {
 
       // Agregar la primera fila con capital inicial y un interés fijo
       this.results.push({
-        interest: fixedInterest.toFixed(2), // Interés fijo para el primer año
+        interest: fixedInterest, // Interés fijo para el primer año
         capital: (capital + fixedInterest).toFixed(2) // Capital después del primer año
       });
       
