@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Simulación Demográfica de Bolivia</h1>
+    <h1>Ejercicio B</h1>
     <div class="flex-container">
       <Fieldset>
         <p>

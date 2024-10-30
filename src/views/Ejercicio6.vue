@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Ejercicio 6</h1>
+    <h1>Ejercicio G</h1>
     <div class="flex-container">
       <Fieldset>
         <p>
