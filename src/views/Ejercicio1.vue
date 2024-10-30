@@ -4,7 +4,7 @@
     <div class="flex-container">
       <Fieldset legend="Enunciado del Ejercicio 1">
         <p>
-          ¿De qué manera se puede determinar el comportamiento del capital bajo una tasa de interés fija?
+          ¿Cuál será el capital en un depósito a plazo fijo con una tasa de interés constante?
         </p>
       </Fieldset>
       <div class="controls">
@@ -45,8 +45,8 @@ export default {
   },
   data() {
     return {
-      capitalInicial: capitalInicial,
-      tiempoDeposito: tiempoDeposito,
+      capitalInicial: 1000,
+      tiempoDeposito: 10,
       results: []
     };
   },
@@ -54,19 +54,11 @@ export default {
     simulateInvestment() {
       this.results = [];
       let capital = this.capitalInicial;
-      const interestRate = 0.035; 
-      const fixedInterest = 35; // Interés fijo para el primer año
+      const interestRate = 0.035; // 3.5% tasa de interés anual
 
-      // Agregar la primera fila con capital inicial y un interés fijo
-      this.results.push({
-        interest: fixedInterest.toFixed(2), // Interés fijo para el primer año
-        capital: (capital + fixedInterest).toFixed(2) // Capital después del primer año
-      });
-      
-      // Calcular para los años restantes
-      for (let year = 2; year <= this.tiempoDeposito; year++) {
-        const interest = (capital + fixedInterest) * interestRate; // Calcular el interés para el siguiente año
-        capital += interest;                                    // Actualizar el capital
+      for (let year = 1; year <= this.tiempoDeposito; year++) {
+        let interest = capital * interestRate;
+        capital += interest;
         this.results.push({
           interest: interest.toFixed(2),
           capital: capital.toFixed(2)
@@ -76,6 +68,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 h1 {
