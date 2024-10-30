@@ -89,11 +89,6 @@ h1 {
   width: 100%;
 }
 
-.enunciado {
-  width: 80%;
-  text-align: center;
-}
-
 fieldset{
   width: 80%; /* Asegura que el Fieldset ocupe el 80% del ancho */
   text-align: center;
