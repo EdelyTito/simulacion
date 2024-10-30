@@ -73,6 +73,7 @@ export default {
       iteracion_mejor_solucion: null,
     };
   },
+  
   methods: {
     generar_rx(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -88,18 +89,21 @@ export default {
         const x2 = this.generar_rx(0, 10);
         const x3 = this.generar_rx(1, 2);
 
-        if (x1 + x2 >= 2) {
-          const z = 2 * x1 + 3 * x2 - x3;
-          if (z > this.Z) {
-            this.Z = z;
-            this.mejor_solucion = { x1, x2, x3, z };
-            this.iteracion_mejor_solucion = i; // Guarda la iteración actual
-          }
-          this.results.push({ x1, x2, x3, z });
+        const isValid = x1 + x2 >= 2;
+        const z = isValid ? (2 * x1 + 3 * x2 - x3) : null;
+
+        if (isValid && z > this.Z) {
+          this.Z = z;
+          this.mejor_solucion = { x1, x2, x3, z };
+          this.iteracion_mejor_solucion = i; // Guarda la iteración actual
         }
+
+        // Almacenar el resultado para cada iteración, incluso si no es válido
+        this.results.push({ x1, x2, x3, z: isValid ? z : 'Invalido' });
       }
     },
-  }
+}
+
 
 };
 </script>
