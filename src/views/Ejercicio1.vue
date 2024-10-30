@@ -2,11 +2,13 @@
   <div>
     <h1>Ejercicio A</h1>
     <div class="flex-container">
-      <Fieldset>
-        <p>
-          ¿Cuál será el capital en un depósito a plazo fijo con una tasa de interés constante?
-        </p>
-      </Fieldset>
+      <div class="enunciado">
+        <Fieldset>
+          <p>
+            ¿Cuál será el capital en un depósito a plazo fijo con una tasa de interés constante?
+          </p>
+        </Fieldset>
+      </div>
       <div class="controls">
         <label for="capitalInicial">Capital Inicial ($):</label>
         <input type="number" v-model="capitalInicial" id="capitalInicial" min="1">
@@ -80,16 +82,23 @@ h1 {
 
 .flex-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  gap: 10px; /* Ajuste del espacio entre los elementos */
+  gap: 20px;
   margin-top: 20px;
-  width: 90%; /* Ajuste del ancho total del contenedor */
-  margin: 0 auto;
+  width: 100%;
 }
 
-Fieldset {
-  margin-right: -10px; /* Ajuste del margen derecho */
+.enunciado {
+  width: 100%;
+  text-align: center;
+}
+
+Fieldset p {
+  font-size: 18px;
+  text-align: center;
+  color: #333;
+  margin: 0 auto;
 }
 
 .controls {
@@ -99,8 +108,9 @@ Fieldset {
   background-color: #fff;
   padding: 20px;
   border-radius: 20px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 1.1);
-  margin-left: -10px; /* Ajuste del margen izquierdo */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 40%; /* Ajuste el ancho del cuadro de ingreso */
+  text-align: center;
 }
 
 .results-container {
@@ -127,17 +137,12 @@ button {
   color: white;
   border-radius: 20px;
   padding: 5px 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
   font-size: 16px;
 }
 
 input {
   border-radius: 20px;
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
   font-size: 16px;
   padding: 5px 10px;
 }
