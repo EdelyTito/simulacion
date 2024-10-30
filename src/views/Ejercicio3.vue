@@ -14,7 +14,7 @@
       </Fieldset>
       <div class="controls">
         <label for="iterations">Iteraciones:</label>
-        <input type="number" v-model="NUM_ITERACIONES" id="iterations" min="1">
+        <input type="number" v-model="NUM_ITERACIONES" id="iterations" min="1" />
         <button @click="simulateMonteCarlo">Simular</button>
       </div>
     </div>
@@ -66,7 +66,7 @@ export default {
   },
   data() {
     return {
-      NUM_ITERACIONES: 1000,
+      NUM_ITERACIONES: 100000, // Cambiado a 100000 por defecto
       results: [],
       mejor_solucion: null,
       Z: -Infinity,
@@ -76,33 +76,32 @@ export default {
   
   methods: {
     generar_rnd(min, max) {
-      return Math.random() * (max - min) + min; // Cambia la generación de número aleatorio
+      return Math.random() * (max - min) + min;
     },
     
     simulateMonteCarlo() {
       this.mejor_solucion = null;
-      this.Z = -Infinity; // Establece Z a infinito negativo para la maximización
+      this.Z = -Infinity;
       this.iteracion_mejor_solucion = null;
       this.results = [];
 
       for (let i = 0; i < this.NUM_ITERACIONES; i++) {
-        // Generación de X1 y X2 en el rango correcto
-        const x1 = this.generar_rnd(0, 10); 
-        const x2 = Math.floor(this.generar_rnd(0, 100)); // Asegúrate de redondear a entero
-        const x3 = this.generar_rnd(1, 2); // Genera X3 en el rango [1, 2]
+        console.log(`Iteración: ${i + 1}`); // Log para rastrear el progreso
 
-        // Validación de la restricción
-        const isValid = (x1 + x2) <= 20; // Cambié la condición para que coincida con el algoritmo original
+        const x1 = this.generar_rnd(0, 10); 
+        const x2 = Math.floor(this.generar_rnd(0, 100)); 
+        const x3 = this.generar_rnd(1, 2); 
+
+        const isValid = (x1 + x2) <= 20;
         const z = isValid ? (2 * x1 + 3 * x2 - x3) : null;
 
-        // Actualizar mejor solución si es válida y mejora Z
         if (isValid && z > this.Z) {
           this.Z = z;
           this.mejor_solucion = { x1, x2, x3, z };
-          this.iteracion_mejor_solucion = i; // Guarda la iteración actual
+          this.iteracion_mejor_solucion = i;
         }
 
-        // Almacenar el resultado para cada iteración
+        // Almacenar el resultado para cada iteración, incluyendo inválidos
         this.results.push({ x1, x2, x3, z: isValid ? z : 'Invalido' });
       }
     },
