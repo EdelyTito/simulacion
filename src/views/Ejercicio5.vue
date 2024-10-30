@@ -4,7 +4,7 @@
       <div class="flex-container">
           <Fieldset legend="Enunciado del Ejercicio 5">
               <p>
-                  Un granjero tiene una gallina que pone huevos a una razón Poisson con media de 2 huevos/día. El 20% de los huevos se rompen, del 30% de ellos nacen pollos y el resto permanecen como huevos. De los pollos, el 20% muere y el 80% sobrevive. Simule este sistema y determine el ingreso promedio del granjero si cada huevo lo vende en 1,2 Bs y cada pollo en 20 Bs.
+                  Un granjero tiene una gallina que pone huevos a una razón Poisson con media de 2 huevos/día. El 20% de los huevos se rompen, del 30% de ellos nacen pollos y el resto permanecen como huevos. De los pollos, el 20% muere y el 80% sobrevive. Simule este sistema y determine el ingreso promedio del granjero si cada huevo lo vende en 2 Bs y cada pollo en 30 Bs.
               </p>
           </Fieldset>
           <div class="controls">
@@ -98,7 +98,7 @@ export default {
             chicksDied++;
           }
         }
-        const dailyIncome = (eggsLaid - eggsBroken - chicksBorn) * 1.2 + (chicksBorn - chicksDied) * 20;
+        const dailyIncome = (eggsLaid - eggsBroken - chicksBorn) * 2 + (chicksBorn - chicksDied) * 30;
         this.results.push({
           eggsLaid,
           eggsBroken,
