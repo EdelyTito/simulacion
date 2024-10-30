@@ -90,7 +90,7 @@ h1 {
 }
 
 .enunciado {
-  width: 100%;
+  width: 80%;
   text-align: center;
 }
 
@@ -109,7 +109,7 @@ Fieldset p {
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  width: 40%; /* Ajuste el ancho del cuadro de ingreso */
+  width: 50%; /* Ajuste el ancho del cuadro de ingreso */
   text-align: center;
 }
 
