@@ -54,11 +54,18 @@ export default {
     simulateInvestment() {
       this.results = [];
       let capital = this.capitalInicial;
-      const interestRate = 0.035; // 3.5% tasa de interés anual
+      const interestRate = 0.035; 
 
-      for (let year = 1; year <= this.tiempoDeposito; year++) {
-        let interest = capital * interestRate;
-        capital += interest;
+      let interest = capital * interestRate;
+      capital += interest;
+      
+      this.results.push({
+        interest: interest.toFixed(2), // Interés calculado para el primer año
+        capital: capital.toFixed(2)     // Capital después del primer año
+      });
+      for (let year = 2; year <= this.tiempoDeposito; year++) {
+        interest = capital * interestRate; // Calcular el interés para el siguiente año
+        capital += interest;                // Actualizar el capital
         this.results.push({
           interest: interest.toFixed(2),
           capital: capital.toFixed(2)
