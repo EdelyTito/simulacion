@@ -50,7 +50,7 @@
   }
 
   .menu > li {
-   background: #000;
+   background: #3c1263;
    float: left;
    position: relative;
    transform: skewX(25deg);
@@ -66,7 +66,7 @@
   }  
 
   .menu li:hover {
-   background: #3c1263;
+   background: #8328d4;
   }  
 
   .menu > li > a {
@@ -84,7 +84,7 @@
   }
 
   .submenu li {
-   background-color: #34495e;
+   background-color: #8328d4;
    position: relative;
    overflow: hidden;  
   }      
