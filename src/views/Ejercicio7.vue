@@ -4,10 +4,7 @@
     <div class="flex-container">
       <Fieldset>
         <p>
-          Las llegadas de los clientes a una tienda, sigue una distribución uniforme: 2 ± 2, por hora y cada cliente compra artículos de acuerdo con la siguiente función de probabilidad:
-           Artículos: 0 1 2 3
-           Probabilidad: 0.2 0.3 0.4 0.1
-          Mediante el desarrollo de un modelo de simulación, determine la ganancia neta del dueño y la cantidad de artículos vendidos de ese día si sus costos por día asciende a 300 Bs y el costo del articulo es igual A 50 Bs y el precio de venta es igual a 75 Bs.
+          Para el problema de la llegada de clientes que compran artículos realizar 30 simulaciones de 10 horas y determinar la ganancia neta promedio de la tienda por día y la cantidad promedio de ventas por día.
         </p>
       </Fieldset>
       <div class="controls">

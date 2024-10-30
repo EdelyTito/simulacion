@@ -4,7 +4,7 @@
     <div class="flex-container">
       <Fieldset>
         <p>
-          Desarrollar el diagrama de flujo para el siguiente juego de datos: el apostador lanza 2 dados y si saca 7 en la suma de los dos dados gana 5 Bs. De otra manera pierde 2 Bs. Simular el juego y determinar cuanto habrá acumulado el apostador luego de los lanzamientos.
+          Para el juego del lanzamiento de dados realizar 30 simulaciones de 100 juegos y determinar: la ganancia promedio neta del dueño, el número de veces que gana la casa, la probabilidad de ganar de la casa en cada simulación.
         </p>
       </Fieldset>
       <div class="controls">

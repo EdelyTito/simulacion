@@ -4,7 +4,7 @@
       <div class="flex-container">
           <Fieldset>
               <p>
-                  Un granjero tiene una gallina que pone huevos a una razón Poisson con media de 2 huevos/día. El 20% de los huevos se rompen, del 30% de ellos nacen pollos y el resto permanecen como huevos. De los pollos, el 20% muere y el 80% sobrevive. Simule este sistema y determine el ingreso promedio del granjero si cada huevo lo vende en 2 Bs y cada pollo en 30 Bs.
+                Para el problema de la gallina ponedora de huevos realizar 30 simulaciones de 28 días y responder a las preguntas planteadas en el problema.
               </p>
           </Fieldset>
           <div class="controls">

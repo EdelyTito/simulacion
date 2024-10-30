@@ -4,7 +4,7 @@
     <div class="flex-container">
       <Fieldset>
         <p>
-          La demanda de azúcar en una tienda sigue una distribución exponencial con media de 100 Kg/día. El dueño de la tienda revisa el inventario cada 7 días y hace un pedido a la planta igual a la capacidad de la bodega menos la cantidad de azúcar que tiene disponible en ese momento: la entrega no es inmediata y sigue una distribución uniforme entre 1 y 3 días. La demanda no surtida por falta de existencias representa ventas perdidas. La capacidad de almacenamiento de la bodega es de 700 Kgrs. El costo de ordenar es de 100 Bs./orden. El costo de llevar el inventario es igual a 0.1 Bs./Kg, el costo de adquisición es igual a 3.5 Bs/Kgr y el precio de venta igual 5 Bs/Kgr. Determinar el comportamiento del inventario a lo largo del tiempo, el costo y la ganancia neta, la demanda insatisfecha para un horizonte de dos meses. Sera la capacidad del almacén suficiente?
+          Para el problema de la agencia de azúcar, realizar 100 simulaciones de 27 días cada una y determinar los promedios de las variables endógenas definidas en el diagrama de flujo y a partir de esto i) Determinar cual seria la ganancia neta promedio de la agencia y cual su demanda insatisfecha promedio; ii) determinar cuál debería ser la capacidad de la bodega en función a la máxima ganancia neta.
         </p>
       </Fieldset>
       <div class="controls">

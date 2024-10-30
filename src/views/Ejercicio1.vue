@@ -5,7 +5,7 @@
       <div class="enunciado">
         <Fieldset>
           <p>
-            ¿Cuál será el capital en un depósito a plazo fijo con una tasa de interés constante?
+            Simular el problema de depósito a plazo fijo para un capital de 1000, ¿en cuantos años se duplicaría el capital?
           </p>
         </Fieldset>
       </div>

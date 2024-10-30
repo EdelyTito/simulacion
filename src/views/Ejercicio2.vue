@@ -4,7 +4,7 @@
     <div class="flex-container">
       <Fieldset>
         <p>
-          ¿Cómo se puede determinar la población de Bolivia en base a los resultados del censo 2012?
+          Para el modelo de población con los parámetros vistos en clase ¿cual sería la población de Bolivia el año 2023?
         </p>
       </Fieldset>
       <div class="controls">
