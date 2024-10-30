@@ -19,7 +19,7 @@ export default {
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-image: url("~@/assets/Home2.jpeg");
+  background-image: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.es%2Ffotos-vectores-gratis%2Ffondo-morado&psig=AOvVaw2t1AD5O2zzpoSMIoPT6nvk&ust=1730341485438000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCOCnjr6GtYkDFQAAAAAdAAAAABAE");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
