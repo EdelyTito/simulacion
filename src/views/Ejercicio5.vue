@@ -1,56 +1,54 @@
 <template>
   <div>
-    <h1>Ejercicio 7</h1>
-    <div class="flex-container">
-      <Fieldset legend="Enunciado del Ejercicio 5">
-        <p>
-          Un granjero tiene una gallina que pone huevos a una razón Poisson con media de 2 huevos/día. El 20% de los huevos se rompen, del 30% de ellos nacen pollos y el resto permanecen como huevos. De los pollos, el 20% muere y el 80% sobrevive. Simule este sistema y determine el ingreso promedio del granjero si cada huevo lo vende en 1,2 Bs y cada pollo en 20 Bs.
-        </p>
-      </Fieldset>
-      <div class="controls">
-        <label for="simulationDays">Número de días:</label>
-        <input type="number" v-model="simulationDays" id="simulationDays" min="1" />
-
-        <label for="eggPrice">Precio venta del huevo:</label>
-        <input type="number" v-model="eggPrice" id="eggPrice" min="0" step="0.01" placeholder="Ej. 1.2" />
-
-        <label for="chickPrice">Precio venta del pollo:</label>
-        <input type="number" v-model="chickPrice" id="chickPrice" min="0" step="0.01" placeholder="Ej. 20" />
-
-        <button @click="simulateFarm">Simular Granja</button>
+      <h1>Ejercicio 7</h1>
+      <div class="flex-container">
+          <Fieldset legend="Enunciado del Ejercicio 5">
+              <p>
+                  Un granjero tiene una gallina que pone huevos a una razón Poisson con media de 2 huevos/día. El 20% de los huevos se rompen, del 30% de ellos nacen pollos y el resto permanecen como huevos. De los pollos, el 20% muere y el 80% sobrevive. Simule este sistema y determine el ingreso promedio del granjero si cada huevo lo vende en 1,2 Bs y cada pollo en 20 Bs.
+              </p>
+          </Fieldset>
+          <div class="controls">
+              <label for="simulationDays">Número de días:</label>
+              <input type="number" v-model="simulationDays" id="simulationDays" min="1">
+              <button @click="simulateFarm">Simular Granja</button>
+          </div>
       </div>
-    </div>
-    <Fieldset v-if="results.length" legend="Resultados" class="results-container">
-      <p><strong>Total de Ganancia de los {{ simulationDays }} días:</strong> {{ totalIncome }} Bs.</p>
-      <p><strong>Huevos Puestos en el total de días:</strong> {{ results.reduce((acc, result) => acc + result.eggsLaid, 0) }}</p>
-      <p><strong>Pollos Nacidos en el total de días:</strong> {{ results.reduce((acc, result) => acc + result.chicksBorn, 0) }}</p>
-      <p><strong>Huevos Rotos en el total de días:</strong> {{ results.reduce((acc, result) => acc + result.eggsBroken, 0) }}</p>
-      <p><strong>Pollos Muertos en el total de días:</strong> {{ results.reduce((acc, result) => acc + result.chicksDied, 0) }}</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Día</th>
-            <th>Cantidad Huevos Gallina</th>
-            <th>Total Huevos Buenos</th>
-            <th>Total Pollos Vivos</th>
-            <th>Total Pollos Muertos</th>
-            <th>Total Huevos Gallina</th>
-            <th>Ganancia Neta (Bs)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(result, index) in results" :key="index">
-            <td>{{ index + 1 }}</td>
-            <td>{{ result.eggsLaid }}</td>
-            <td>{{ result.eggsLaid - result.eggsBroken }}</td>
-            <td>{{ result.chicksBorn - result.chicksDied }}</td>
-            <td>{{ result.chicksDied }}</td>
-            <td>{{ result.eggsLaid }}</td>
-            <td>{{ result.dailyIncome }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </Fieldset>
+      <Fieldset v-if="results.length" legend="Resultados" class="results-container">
+        <p><strong>Total de Ganancia de los {{ simulationDays }} días:</strong> {{ totalIncome }} Bs.</p>
+        <p><strong>Huevos Puestos en el total de dias</strong> 
+        {{ results.reduce((acc, result) => acc + result.eggsLaid, 0) }} </p>
+        <p><strong>Pollos Nacidos en el total de dias</strong> 
+        {{ results.reduce((acc, result) => acc + result.chicksBorn, 0) }} </p>
+        <p><strong>Huevos Rotos en el total de dias</strong> 
+        {{ results.reduce((acc, result) => acc + result.eggsBroken, 0) }} </p>
+        <p><strong>Pollos Muertos en el total de dias</strong> 
+        {{ results.reduce((acc, result) => acc + result.chicksDied, 0) }} </p> 
+        <p><strong>Total de Pollos vendidos</strong> {{ totalgallinas }}</p>
+        <p><strong>Total de Huevos vendidos</strong> {{ totalhuevos }}</p>
+          <table>
+              <thead>
+                  <tr>
+                      <th>Día</th>
+                      <th>Huevos Puestos</th>
+                      <th>Huevos Rotos</th>
+                      <th>Pollos Nacidos</th>
+                      <th>Pollos Muertos</th>
+                      <th>Ingreso del Día (Bs)</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr v-for="(result, index) in results" :key="index">
+                      <td>{{ index + 1 }}</td>
+                      <td>{{ result.eggsLaid }}</td>
+                      <td>{{ result.eggsBroken }}</td>
+                      <td>{{ result.chicksBorn }}</td>
+                      <td>{{ result.chicksDied }}</td>
+                      <td>{{ result.dailyIncome }}</td>
+                  </tr>
+              </tbody>
+          </table>
+          
+      </Fieldset>
   </div>
 </template>
 
@@ -64,14 +62,27 @@ export default {
   data() {
     return {
       results: [],
-      simulationDays: 300,
-      eggPrice: 1.2, // Precio por defecto
-      chickPrice: 20 // Precio por defecto
+      simulationDays: 300
     };
   },
   computed: {
+    averageIncome() {
+      const totalIncome = this.results.reduce((acc, result) => acc + result.dailyIncome, 0);
+      return (totalIncome / this.results.length).toFixed(2);
+    },
     totalIncome() {
       return this.results.reduce((acc, result) => acc + result.dailyIncome, 0);
+    },
+    //total de gallinas vendidas
+
+    totalgallinas(){
+      return this.results.reduce((acc, result) => acc + result.chicksBorn, 0);
+    },
+
+    //total de huevos vendidos
+
+    totalhuevos(){
+      return this.results.reduce((acc, result) => acc + result.eggsLaid, 0);
     }
   },
   methods: {
@@ -87,9 +98,7 @@ export default {
             chicksDied++;
           }
         }
-        const dailyIncome =
-          (eggsLaid - eggsBroken) * this.eggPrice + (chicksBorn - chicksDied) * this.chickPrice;
-
+        const dailyIncome = (eggsLaid - eggsBroken - chicksBorn) * 1.2 + (chicksBorn - chicksDied) * 20;
         this.results.push({
           eggsLaid,
           eggsBroken,
@@ -112,6 +121,7 @@ export default {
   }
 }
 </script>
+
 
 <style scoped>
 h1 {
