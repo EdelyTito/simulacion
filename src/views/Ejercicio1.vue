@@ -1,21 +1,14 @@
 <template>
   <div>
-    <h1>Ejercicio A</h1>
+    <h1>Simulación de Depósito a Plazo Fijo</h1>
     <div class="flex-container">
-      <div class="enunciado">
-        <Fieldset>
-          <p>
-            Simular el problema de depósito a plazo fijo para un capital de 1000, ¿en cuantos años se duplicaría el capital?
-          </p>
-        </Fieldset>
-      </div>
       <div class="controls">
         <label for="capitalInicial">Capital Inicial ($):</label>
-        <input type="number" v-model="capitalInicial" id="capitalInicial" min="1">
+        <input type="number" v-model.number="capitalInicial" id="capitalInicial" min="1">
         <label for="tiempoDeposito">Tiempo en años:</label>
-        <input type="number" v-model="tiempoDeposito" id="tiempoDeposito" min="1">
+        <input type="number" v-model.number="tiempoDeposito" id="tiempoDeposito" min="1">
         <label for="numSimulaciones">Número de Simulaciones:</label>
-        <input type="number" v-model="numSimulaciones" id="numSimulaciones" min="1">
+        <input type="number" v-model.number="numSimulaciones" id="numSimulaciones" min="1">
         <button @click="simulateInvestment">Simular Depósito</button>
         <button @click="resetResults">Limpiar</button>
       </div>
@@ -27,7 +20,7 @@
             <th>Simulación</th>
             <th>Capital ($)</th>
             <th>Interés ($)</th>
-            <th>Interés Total ($)</th>
+            <th>Interés Total Acumulado ($)</th>
           </tr>
         </thead>
         <tbody>
@@ -42,7 +35,7 @@
       <div class="averages">
         <p>Promedio Capital: ${{ avgCapital }}</p>
         <p>Promedio Interés: ${{ avgInteres }}</p>
-        <p>Promedio Interés Total: ${{ avgIT }}</p>
+        <p>Promedio Interés Total Acumulado: ${{ avgIT }}</p>
       </div>
     </Fieldset>
   </div>
@@ -78,6 +71,7 @@ export default {
         let totalInterest = 0;
         let interest = 0;
 
+        // Simulación del tiempo de depósito
         for (let year = 1; year <= this.tiempoDeposito; year++) {
           if (capital > 0 && capital <= 10000) {
             interest = capital * 0.035;
@@ -102,6 +96,7 @@ export default {
         });
       }
 
+      // Calcular los promedios
       this.avgCapital = (totalCapital / this.numSimulaciones).toFixed(2);
       this.avgInteres = (totalInterestSum / this.numSimulaciones).toFixed(2);
       this.avgIT = (totalITSum / this.numSimulaciones).toFixed(2);
