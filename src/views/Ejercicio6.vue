@@ -4,12 +4,31 @@
     <div class="flex-container">
       <Fieldset>
         <p>
-          Para el problema de la agencia de azúcar, realizar 100 simulaciones de 27 días cada una y determinar los promedios de las variables endógenas definidas en el diagrama de flujo y a partir de esto i) Determinar cual seria la ganancia neta promedio de la agencia y cual su demanda insatisfecha promedio; ii) determinar cuál debería ser la capacidad de la bodega en función a la máxima ganancia neta.
+          Para el problema de la agencia de azúcar, realizar simulaciones y determinar los promedios de las variables endógenas definidas en el diagrama de flujo y a partir de esto i) Determinar cual seria la ganancia neta promedio de la agencia y cual su demanda insatisfecha promedio; ii) determinar cuál debería ser la capacidad de la bodega en función a la máxima ganancia neta.
         </p>
       </Fieldset>
       <div class="controls">
         <label for="simulationDays">Número de simulaciones:</label>
         <input type="number" v-model="simulationDays" id="simulationDays" min="1">
+
+        <label for="maxDays">Número máximo de días:</label>
+        <input type="number" v-model="maxDays" id="maxDays" min="1">
+
+        <label for="warehouseCapacity">Capacidad de la bodega:</label>
+        <input type="number" v-model="warehouseCapacity" id="warehouseCapacity" min="1">
+
+        <label for="orderingCost">Costo de orden:</label>
+        <input type="number" v-model="orderingCost" id="orderingCost" min="0">
+
+        <label for="unitMaintenanceCost">Costo unitario de mantenimiento:</label>
+        <input type="number" v-model="unitMaintenanceCost" id="unitMaintenanceCost" min="0">
+
+        <label for="unitAcquisitionCost">Costo unitario de adquisición:</label>
+        <input type="number" v-model="unitAcquisitionCost" id="unitAcquisitionCost" min="0">
+
+        <label for="unitSellingPrice">Precio de venta unitario:</label>
+        <input type="number" v-model="unitSellingPrice" id="unitSellingPrice" min="0">
+
         <button @click="simulateStore">Simular Tienda</button>
       </div>
     </div>
@@ -54,52 +73,57 @@ export default {
   data() {
     return {
       results: [],
-      simulationDays: 60, // Valor por defecto para dos meses
-      currentInventory: 700,
-      deliveryTime: 0
+      simulationDays: 1, // Valor por defecto para el número de simulaciones
+      maxDays: 27, // Valor por defecto para los días
+      warehouseCapacity: 700, // Capacidad de la bodega
+      orderingCost: 100, // Costo de orden
+      unitMaintenanceCost: 0.1, // Costo unitario de mantenimiento (porcentaje)
+      unitAcquisitionCost: 3.5, // Costo unitario de adquisición
+      unitSellingPrice: 5 // Precio de venta unitario
     };
   },
   methods: {
     simulateStore() {
       this.results = [];
-      for (let day = 1; day <= this.simulationDays; day++) {
-        let demand = Math.round(Math.random() * 100);
-        let initialInventory = this.currentInventory;
-        let unmetDemand = 0;
-        let orderingCost = 0;
-        let inventoryCost = Math.round(this.currentInventory * 0.1);
-        let netGain = 0;
 
-        if (day % 7 === 0 || this.currentInventory === 0) {
-          orderingCost = 100;
-          this.deliveryTime = Math.floor(Math.random() * 3) + 1;
-        }
+      for (let sim = 0; sim < this.simulationDays; sim++) {
+        let currentInventory = this.warehouseCapacity; // Inventario inicial
 
-        if (this.deliveryTime > 0) {
-          this.deliveryTime--;
-          if (this.deliveryTime === 0) {
-            this.currentInventory = 700 - this.currentInventory;
+        for (let day = 1; day <= this.maxDays; day++) {
+          let demand = Math.round(Math.random() * 100);
+          let initialInventory = currentInventory;
+          let unmetDemand = 0;
+          let orderingCost = 0;
+          let inventoryCost = Math.round(currentInventory * this.unitMaintenanceCost);
+          let netGain = 0;
+
+          // Costo de ordenar cada 7 días o si el inventario es cero
+          if (day % 7 === 0 || currentInventory === 0) {
+            orderingCost = this.orderingCost;
           }
+
+          // Si la demanda excede el inventario
+          if (demand > currentInventory) {
+            unmetDemand = demand - currentInventory;
+            currentInventory = 0; // Todo el inventario se vende
+          } else {
+            currentInventory -= demand; // Disminuir el inventario por la demanda
+          }
+
+          // Calcular ganancia neta
+          netGain = (demand - unmetDemand) * this.unitSellingPrice - demand * this.unitAcquisitionCost - orderingCost - inventoryCost;
+
+          // Agregar resultados a la lista
+          this.results.push({
+            initialInventory,
+            demand,
+            finalInventory: currentInventory,
+            unmetDemand,
+            orderingCost,
+            inventoryCost,
+            netGain
+          });
         }
-
-        if (demand > this.currentInventory) {
-          unmetDemand = demand - this.currentInventory;
-          this.currentInventory = 0;
-        } else {
-          this.currentInventory -= demand;
-        }
-
-        netGain = (demand - unmetDemand) * 5 - demand * 3.5 - orderingCost - inventoryCost;
-
-        this.results.push({
-          initialInventory,
-          demand,
-          finalInventory: this.currentInventory,
-          unmetDemand,
-          orderingCost,
-          inventoryCost,
-          netGain
-        });
       }
     }
   }
@@ -125,7 +149,7 @@ h1 {
   margin: 0 auto;
 }
 
-fieldset{
+fieldset {
   margin-right: -10px;
 }
 
@@ -179,7 +203,6 @@ button {
 input {
   border-radius: 20px;
   text-align: center;
-  text-decoration: none;
   display: inline-block;
   font-size: 16px;
 }
