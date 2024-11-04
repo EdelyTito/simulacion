@@ -78,6 +78,15 @@ export default {
       let currentYear = this.startYear;
       let population = this.initialPopulation;
 
+      this.results.push({
+        year: currentYear,
+        births: 0, // No hay nacimientos para el año inicial
+        deaths: 0, // No hay muertes para el año inicial
+        population: population
+      });
+
+      currentYear++; // Avanzar al siguiente año para los cálculos
+
       while (currentYear <= this.endYear) {
         const births = Math.round(population * this.birthRate);
         const deaths = Math.round(population * this.deathRate);
@@ -93,6 +102,7 @@ export default {
         currentYear++;
       }
     },
+
     resetResults() {
       this.results = [];
       this.startYear = null;
