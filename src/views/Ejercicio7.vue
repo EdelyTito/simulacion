@@ -4,12 +4,25 @@
     <div class="flex-container">
       <Fieldset>
         <p>
-          Para el problema de la llegada de clientes que compran artículos realizar 30 simulaciones de 10 horas y determinar la ganancia neta promedio de la tienda por día y la cantidad promedio de ventas por día.
+          Para el problema de la llegada de clientes que compran artículos realizar simulaciones y determinar la ganancia neta promedio de la tienda por día y la cantidad promedio de ventas por día.
         </p>
       </Fieldset>
       <div class="controls">
         <label for="simulationDays">Número de simulaciones:</label>
         <input type="number" v-model="simulationCount" id="simulationDays" min="1">
+
+        <label for="maxHours">Número máximo de horas:</label>
+        <input type="number" v-model="maxHours" id="maxHours" min="1">
+
+        <label for="unitCost">Costo unitario del artículo:</label>
+        <input type="number" v-model="unitCost" id="unitCost" min="0">
+
+        <label for="unitPrice">Precio de venta unitario:</label>
+        <input type="number" v-model="unitPrice" id="unitPrice" min="0">
+
+        <label for="fixedCost">Costo fijo unitario:</label>
+        <input type="number" v-model="fixedCost" id="fixedCost" min="0">
+
         <button @click="simulateStore">Simular Tienda</button>
       </div>
     </div>
@@ -48,7 +61,11 @@ export default {
   data() {
     return {
       results: [],
-      simulationCount: 1
+      simulationCount: 1,
+      maxHours: 10,  // Valor predeterminado
+      unitCost: 50,  // Valor predeterminado
+      unitPrice: 75, // Valor predeterminado
+      fixedCost: 300 // Valor predeterminado
     };
   },
   methods: {
@@ -60,7 +77,7 @@ export default {
         let buyingCustomers = 0;
         let totalItemsSold = 0;
 
-        for (let hour = 0; hour < 24; hour++) {
+        for (let hour = 0; hour < this.maxHours; hour++) {
           let customers = Math.floor(Math.random() * 5); // 2 ± 2
           totalCustomers += customers;
 
@@ -82,8 +99,8 @@ export default {
           }
         }
 
-        let totalRevenue = totalItemsSold * 75; // 75 Bs per item
-        let totalCost = totalItemsSold * 50 + 300; // 50 Bs per item cost + 300 Bs daily cost
+        let totalRevenue = totalItemsSold * this.unitPrice;
+        let totalCost = totalItemsSold * this.unitCost + this.fixedCost;
         let netGain = totalRevenue - totalCost;
 
         this.results.push({
@@ -116,7 +133,7 @@ h1 {
   width: 100%;
 }
 
-fieldset{
+fieldset {
   width: 80%; /* Asegura que el Fieldset ocupe el 80% del ancho */
   text-align: center;
   margin-bottom: 20px;
@@ -175,5 +192,4 @@ button {
   font-size: 16px;
   margin: 20px 0;
 }
-
 </style>
