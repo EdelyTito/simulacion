@@ -1,38 +1,42 @@
 <template>
   <div>
-    <h1>Ejercicio B</h1>
+    <h1>Simulación de Depósito a Plazo Fijo</h1>
     <div class="flex-container">
-      <Fieldset>
-        <p>
-          Para el modelo de población con los parámetros vistos en clase ¿cual sería la población de Bolivia el año 2023?
-        </p>
-      </Fieldset>
       <div class="controls">
-        <label for="initialPopulation">Población Inicial:</label>
-        <input type="number" v-model="initialPopulation" id="initialPopulation" min="1" placeholder="Ejemplo: 10059856">
-        
-        <button @click="simulatePopulationGrowth" :disabled="!initialPopulation">Simular Crecimiento Poblacional</button>
+        <label for="capitalInicial">Capital Inicial ($):</label>
+        <input type="number" v-model.number="capitalInicial" id="capitalInicial" min="1">
+        <label for="tiempoDeposito">Tiempo en años:</label>
+        <input type="number" v-model.number="tiempoDeposito" id="tiempoDeposito" min="1">
+        <label for="numSimulaciones">Número de Simulaciones:</label>
+        <input type="number" v-model.number="numSimulaciones" id="numSimulaciones" min="1">
+        <button @click="simulateInvestment">Simular Depósito</button>
+        <button @click="resetResults">Limpiar</button>
       </div>
     </div>
     <Fieldset v-if="results.length" class="results-container">
       <table>
         <thead>
           <tr>
-            <th>Año</th>
-            <th>Nacimientos</th>
-            <th>Muertes</th>
-            <th>Población</th>
+            <th>Simulación</th>
+            <th>Capital ($)</th>
+            <th>Interés ($)</th>
+            <th>Interés Total Acumulado ($)</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="result in results" :key="result.year">
-            <td>{{ result.year }}</td>
-            <td>{{ formatNumber(result.births) }}</td>
-            <td>{{ formatNumber(result.deaths) }}</td>
-            <td>{{ formatNumber(result.population) }}</td>
+          <tr v-for="(result, index) in results" :key="index">
+            <td>{{ index + 1 }}</td>
+            <td>{{ result.capital }}</td>
+            <td>{{ result.interest }}</td>
+            <td>{{ result.totalInterest }}</td>
           </tr>
         </tbody>
       </table>
+      <div class="averages">
+        <p>Promedio Capital: ${{ avgCapital }}</p>
+        <p>Promedio Interés: ${{ avgInteres }}</p>
+        <p>Promedio Interés Total Acumulado: ${{ avgIT }}</p>
+      </div>
     </Fieldset>
   </div>
 </template>
@@ -46,46 +50,62 @@ export default {
   },
   data() {
     return {
-      initialPopulation: null, // Inicialmente vacío para permitir la entrada del usuario
-      results: []
+      capitalInicial: 1000,
+      tiempoDeposito: 10,
+      numSimulaciones: 1,
+      results: [],
+      avgCapital: 0,
+      avgInteres: 0,
+      avgIT: 0
     };
   },
   methods: {
-    simulatePopulationGrowth() {
-      let CT = 2013; // Año inicial
-      const T = 2024; // Año final (ajustado a 2024)
-      const TN = 0.02493; // Tasa de nacimientos
-      const TM = 0.00743; // Tasa de mortalidad
-      let PB = Number(this.initialPopulation); // Población inicial ingresada por el usuario
-
-      // Reiniciar resultados para cada simulación
+    simulateInvestment() {
       this.results = [];
+      let totalCapital = 0;
+      let totalInterestSum = 0;
+      let totalITSum = 0;
 
-      // Ciclo para calcular la población desde 2013 hasta 2024
-      while (CT <= T) {
-        let NAC = Math.round(PB * TN); // Cálculo de nacimientos
-        let MUE = Math.round(PB * TM); // Cálculo de muertes
+      for (let sim = 0; sim < this.numSimulaciones; sim++) {
+        let capital = this.capitalInicial;
+        let totalInterest = 0;
+        let interest = 0;
 
-        // Agregar el resultado para el año actual
+        // Simulación del tiempo de depósito
+        for (let year = 1; year <= this.tiempoDeposito; year++) {
+          if (capital > 0 && capital <= 10000) {
+            interest = capital * 0.035;
+          } else if (capital > 10000 && capital <= 50000) {
+            interest = capital * 0.037;
+          } else if (capital > 50000) {
+            interest = capital * 0.04;
+          }
+
+          totalInterest += interest;
+          capital += interest;
+        }
+
+        totalCapital += capital;
+        totalInterestSum += interest;
+        totalITSum += totalInterest;
+
         this.results.push({
-          year: CT,
-          births: NAC,
-          deaths: MUE,
-          population: Math.round(PB) // Población redondeada
+          capital: capital.toFixed(2),
+          interest: interest.toFixed(2),
+          totalInterest: totalInterest.toFixed(2)
         });
-
-        // Actualización de la población
-        PB = PB + NAC - MUE;
-
-        // Incrementar el año
-        CT++;
       }
 
-      // Imprimir el valor final de PB en la consola
-      console.log(`Valor final de PB: ${PB}`);
+      // Calcular los promedios
+      this.avgCapital = (totalCapital / this.numSimulaciones).toFixed(2);
+      this.avgInteres = (totalInterestSum / this.numSimulaciones).toFixed(2);
+      this.avgIT = (totalITSum / this.numSimulaciones).toFixed(2);
     },
-    formatNumber(number) {
-      return new Intl.NumberFormat().format(number);
+    resetResults() {
+      this.results = [];
+      this.avgCapital = 0;
+      this.avgInteres = 0;
+      this.avgIT = 0;
     }
   }
 };
