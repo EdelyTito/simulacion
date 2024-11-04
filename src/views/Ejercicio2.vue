@@ -4,14 +4,27 @@
     <div class="flex-container">
       <Fieldset>
         <p>
-          Para el modelo de población con los parámetros vistos en clase ¿cual sería la población de Bolivia el año 2023?
+          Simula el crecimiento de la población desde un año inicial hasta un año final, con parámetros de población inicial, tasa de natalidad y tasa de mortalidad.
         </p>
       </Fieldset>
       <div class="controls">
+        <label for="startYear">Año de Inicio:</label>
+        <input type="number" v-model="startYear" id="startYear" min="1900" placeholder="Ejemplo: 2020">
+
+        <label for="endYear">Año de Fin:</label>
+        <input type="number" v-model="endYear" id="endYear" :min="startYear" placeholder="Ejemplo: 2030">
+
         <label for="initialPopulation">Población Inicial:</label>
-        <input type="number" v-model="initialPopulation" id="initialPopulation" min="1" placeholder="Ejemplo: 10059856">
-        
-        <button @click="simulatePopulationGrowth" :disabled="!initialPopulation">Simular Crecimiento Poblacional</button>
+        <input type="number" v-model="initialPopulation" id="initialPopulation" min="1" placeholder="Ejemplo: 1000000">
+
+        <label for="birthRate">Tasa de Natalidad:</label>
+        <input type="number" v-model="birthRate" id="birthRate" step="0.0001" min="0" placeholder="Ejemplo: 0.02">
+
+        <label for="deathRate">Tasa de Mortalidad:</label>
+        <input type="number" v-model="deathRate" id="deathRate" step="0.0001" min="0" placeholder="Ejemplo: 0.01">
+
+        <button @click="simulatePopulationGrowth" :disabled="!isFormValid">Simular Crecimiento Poblacional</button>
+        <button @click="resetResults">Limpiar</button>
       </div>
     </div>
     <Fieldset v-if="results.length" class="results-container">
@@ -46,43 +59,47 @@ export default {
   },
   data() {
     return {
-      initialPopulation: null, // Inicialmente vacío para permitir la entrada del usuario
+      startYear: null,
+      endYear: null,
+      initialPopulation: null,
+      birthRate: null,
+      deathRate: null,
       results: []
     };
   },
+  computed: {
+    isFormValid() {
+      return this.startYear && this.endYear && this.initialPopulation && this.birthRate >= 0 && this.deathRate >= 0;
+    }
+  },
   methods: {
     simulatePopulationGrowth() {
-      let CT = 2013; // Año inicial
-      const T = 2024; // Año final (ajustado a 2024)
-      const TN = 0.02493; // Tasa de nacimientos
-      const TM = 0.00743; // Tasa de mortalidad
-      let PB = Number(this.initialPopulation); // Población inicial ingresada por el usuario
-
-      // Reiniciar resultados para cada simulación
       this.results = [];
+      let currentYear = this.startYear;
+      let population = this.initialPopulation;
 
-      // Ciclo para calcular la población desde 2013 hasta 2024
-      while (CT <= T) {
-        let NAC = Math.round(PB * TN); // Cálculo de nacimientos
-        let MUE = Math.round(PB * TM); // Cálculo de muertes
+      while (currentYear <= this.endYear) {
+        const births = Math.round(population * this.birthRate);
+        const deaths = Math.round(population * this.deathRate);
+        population = population + births - deaths;
 
-        // Agregar el resultado para el año actual
         this.results.push({
-          year: CT,
-          births: NAC,
-          deaths: MUE,
-          population: Math.round(PB) // Población redondeada
+          year: currentYear,
+          births: births,
+          deaths: deaths,
+          population: population
         });
 
-        // Actualización de la población
-        PB = PB + NAC - MUE;
-
-        // Incrementar el año
-        CT++;
+        currentYear++;
       }
-
-      // Imprimir el valor final de PB en la consola
-      console.log(`Valor final de PB: ${PB}`);
+    },
+    resetResults() {
+      this.results = [];
+      this.startYear = null;
+      this.endYear = null;
+      this.initialPopulation = null;
+      this.birthRate = null;
+      this.deathRate = null;
     },
     formatNumber(number) {
       return new Intl.NumberFormat().format(number);
@@ -92,6 +109,7 @@ export default {
 </script>
 
 <style scoped>
+/* Estilos existentes */
 h1 {
   font-size: 50px;
   color: #fff;
@@ -99,6 +117,7 @@ h1 {
   margin-top: 10px;
   text-shadow: 2px 2px 4px #000000;
 }
+
 .flex-container {
   display: flex;
   flex-direction: column;
@@ -108,20 +127,14 @@ h1 {
   width: 100%;
 }
 
-fieldset{
-  width: 80%; /* Asegura que el Fieldset ocupe el 80% del ancho */
+fieldset {
+  width: 80%;
   text-align: center;
   margin-bottom: 20px;
   padding: 15px;
   border-radius: 20px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #fff;
-}
-
-Fieldset p {
-  font-size: 20px;
-  color: #333;
-  margin: 0;
 }
 
 .controls {
@@ -132,7 +145,7 @@ Fieldset p {
   padding: 25px;
   border-radius: 20px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  width: 50%; /* Ajuste el ancho del cuadro de ingreso */
+  width: 50%;
   text-align: center;
 }
 
@@ -141,41 +154,44 @@ Fieldset p {
   width: 80%;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
+
 label, button {
   font-size: 20px;
   color: #1c0c39;
   font-weight: bold;
 }
+
 button {
-  background-color: #3e0669; /* Purple */
+  background-color: #3e0669;
   border: none;
   color: white;
   border-radius: 20px;
   padding: 5px 10px;
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
   font-size: 16px;
   cursor: pointer;
 }
-button:disabled {
-  background-color: #ccc; /* Deshabilitado */
-  cursor: not-allowed;
-}
+
 input {
   border-radius: 20px;
   text-align: center;
-  display: inline-block;
   font-size: 16px;
 }
+
 th, td {
   border: 1px solid black;
   padding: 8px;
   text-align: center;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 </style>
