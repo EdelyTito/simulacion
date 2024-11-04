@@ -14,26 +14,36 @@
         <input type="number" v-model="capitalInicial" id="capitalInicial" min="1">
         <label for="tiempoDeposito">Tiempo en años:</label>
         <input type="number" v-model="tiempoDeposito" id="tiempoDeposito" min="1">
+        <label for="numSimulaciones">Número de Simulaciones:</label>
+        <input type="number" v-model="numSimulaciones" id="numSimulaciones" min="1">
         <button @click="simulateInvestment">Simular Depósito</button>
+        <button @click="resetResults">Limpiar</button>
       </div>
     </div>
     <Fieldset v-if="results.length" class="results-container">
       <table>
         <thead>
           <tr>
-            <th>Año</th>
-            <th>Interés ($/año)</th>
+            <th>Simulación</th>
             <th>Capital ($)</th>
+            <th>Interés ($)</th>
+            <th>Interés Total ($)</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(result, index) in results" :key="index">
             <td>{{ index + 1 }}</td>
-            <td>{{ result.interest }}</td>
             <td>{{ result.capital }}</td>
+            <td>{{ result.interest }}</td>
+            <td>{{ result.totalInterest }}</td>
           </tr>
         </tbody>
       </table>
+      <div class="averages">
+        <p>Promedio Capital: ${{ avgCapital }}</p>
+        <p>Promedio Interés: ${{ avgInteres }}</p>
+        <p>Promedio Interés Total: ${{ avgIT }}</p>
+      </div>
     </Fieldset>
   </div>
 </template>
@@ -49,23 +59,58 @@ export default {
     return {
       capitalInicial: 1000,
       tiempoDeposito: 10,
-      results: []
+      numSimulaciones: 1,
+      results: [],
+      avgCapital: 0,
+      avgInteres: 0,
+      avgIT: 0
     };
   },
   methods: {
     simulateInvestment() {
       this.results = [];
-      let capital = this.capitalInicial;
-      const interestRate = 0.035; // 3.5% tasa de interés anual
+      let totalCapital = 0;
+      let totalInterestSum = 0;
+      let totalITSum = 0;
 
-      for (let year = 1; year <= this.tiempoDeposito; year++) {
-        let interest = capital * interestRate;
-        capital += interest;
+      for (let sim = 0; sim < this.numSimulaciones; sim++) {
+        let capital = this.capitalInicial;
+        let totalInterest = 0;
+        let interest = 0;
+
+        for (let year = 1; year <= this.tiempoDeposito; year++) {
+          if (capital > 0 && capital <= 10000) {
+            interest = capital * 0.035;
+          } else if (capital > 10000 && capital <= 50000) {
+            interest = capital * 0.037;
+          } else if (capital > 50000) {
+            interest = capital * 0.04;
+          }
+
+          totalInterest += interest;
+          capital += interest;
+        }
+
+        totalCapital += capital;
+        totalInterestSum += interest;
+        totalITSum += totalInterest;
+
         this.results.push({
+          capital: capital.toFixed(2),
           interest: interest.toFixed(2),
-          capital: capital.toFixed(2)
+          totalInterest: totalInterest.toFixed(2)
         });
       }
+
+      this.avgCapital = (totalCapital / this.numSimulaciones).toFixed(2);
+      this.avgInteres = (totalInterestSum / this.numSimulaciones).toFixed(2);
+      this.avgIT = (totalITSum / this.numSimulaciones).toFixed(2);
+    },
+    resetResults() {
+      this.results = [];
+      this.avgCapital = 0;
+      this.avgInteres = 0;
+      this.avgIT = 0;
     }
   }
 };
